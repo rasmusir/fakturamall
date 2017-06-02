@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="style.css" type="text/css" rel="stylesheet">
+        <script>
+            function beforeprint()
+            {
+                let inputs = document.querySelectorAll("input");
+                for (let i of inputs)
+                {
+                    let ni = document.createElement("input");
+                    ni.className = i.className;
+                    ni.value = i.value;
+                    ni.placeholder = i.placeholder;
+                    ni.name = i.name;
+                    ni.setAttribute("style", i.getAttribute("style"));
+                    i.parentNode.insertBefore(ni, i);
+                    i.parentNode.removeChild(i);
+                }
+            }
+            
+            let mql = window.matchMedia("print");
+            mql.addListener(cur => {
+                if (cur.matches)
+                {
+                    beforeprint();
+                }
+            });
+            
+            window.addEventListener("load", () => {
+                let item = document.querySelector(".services tr.item");
+                for (let i = 0; i < 10; i++)
+                {
+                    let nitem = item.cloneNode(true);
+                    item.parentElement.appendChild(nitem);
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="faktura">FAKTURA</div>
+            <div class="nr">Fakturanummer <input style="display: inline; width: 25pt; color: white;" placeholder="xxx"></div>
+        </div>
+        <div class="subheader">
+            <div class="fakturadatum">
+                <b>Fakturadatum</b>
+                <input placeholder="Datum">
+            </div>
+            <div class="förfallodatum">
+                <b>Förfallodatum</b>
+                <input placeholder="Datum">
+            </div>
+        </div>
+        <div class="addresser">
+            <div class="avsandare">
+                <b>Avsändare</b>
+                <form name="sender">
+                    <input placeholder="Namn" name="fullname">
+                    <input placeholder="Addressrad 1" name="address">
+                    <input placeholder="Addressrad 2" name="city">
+                    <input placeholder="Kontaktnummer" name="phonenumber">
+                </form>
+            </div>
+            <div class="fakturaadress">
+                <b>Fakturaadress</b>
+                <form name="receiver">
+                    <input placeholder="Namn"  name="fullname">
+                    <input placeholder="Addressrad 1" name="address">
+                    <input placeholder="Addressrad 2" name="city">
+                    <input placeholder="Kontaktnummer" name="phonenumber">
+                </form>
+            </div>
+        </div>
+        <div class="stortabell">
+            <div>
+                <b>Er referens</b>
+                <input placeholder="namn">
+            </div>
+            <div>
+                <b>Dröjsmålsränta</b>
+                <input placeholder="räntesats">
+            </div>
+            <div>
+                <b>Betalningsvilkor</b>
+                <input placeholder="antal dagar">
+            </div>
+        </div>
+        <div class="services">
+            <table>
+                <tr class="head">
+                    <th class="article">Artikel/Tjänst</th>
+                    <th class="desc">Beskrivning</th>
+                    <th class="ammount">Antal</th>
+                    <th class="price">á-pris</th>
+                    <th class="total">Belopp (SEK)</th>
+                </tr>
+                <tr class="item">
+                    <td class="article"><input></td>
+                    <td class="desc"><input></td>
+                    <td class="ammount"><input></td>
+                    <td class="price"><input></td>
+                    <td class="total"><input></td>
+                </tr>
+            </table>
+        </div>
+        <div class="summary">
+            <div>
+                <div>
+                    Momsunderlag
+                </div>
+                <div>Moms 25%<input placeholder="0,00"></div>
+                <div>Moms 12%<input placeholder="0,00"></div>
+                <div>Moms 6%<input placeholder="0,00"></div>
+                <div>Momsfritt<input placeholder="0,00"></div>
+            </div>
+            <div>
+                <div>Frakt<input></div>
+                <div>Belopp före moms<input placeholder="0,00"></div>
+                <div>Total moms<input placeholder="0,00"></div>
+                <div>Öresutjämning<input placeholder="0,00"></div>
+                <div class="total">Summa att betala (SEK)<input placeholder="0,00"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div>
+                <div>Tel.nr: <input></div>
+                <div>Hemmsida: <input></div>
+                <div>E-post: <input style="width: 100%;"></div>
+                <div style="font-size: 8pt">Innerhar F-skattesedel</div>
+            </div>
+            <div>
+                <div>Org.nr: <input></div>
+                <div>Moms.nr: <input></div>
+                <div>SWIFT/BIC: <input></div>
+                <div>IBAN: <input></div>
+            </div>
+            <div>
+                <div>Bankgiro: <input></div>
+                <div>Plusgiro: <input></div>
+                <div>Clearing.nr: <input></div>
+                <div>Kontonummer: <input></div>
+            </div>
+        </div>
+    </body>
+    
+    <style>
+        html
+        {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        body
+        {
+            font-family: arial;
+            position: relative;
+            font-size: 10pt;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        input
+        {
+            display: block;
+            background: transparent;
+            border: none;
+            font-size: 10pt;
+        }
+        
+        .header
+        {
+            background: black;
+            color: white;
+            display: flex;
+            padding: 3pt;
+            line-height: 18pt;
+        }
+        
+        .header .faktura
+        {
+            font-size: 18pt;
+            flex-grow: 1;
+            
+        }
+        
+        .header .nr
+        {
+            font-size: 12pt;
+        }
+        
+        .subheader
+        {
+            margin-top: 3pt;
+            display: flex;
+            width: 50%;
+            transform: translateX(100%);
+        }
+        
+        .subheader div
+        {
+            width: 50%;
+        }
+        
+        .subheader input
+        {
+            margin-left: 5pt;
+        }
+        
+        .addresser
+        {
+            margin-top: 40pt;
+            display: flex;
+        }
+        
+        .addresser div
+        {
+            width: 50%;
+        }
+        
+        .stortabell
+        {
+            margin-top: 40pt;
+            display: flex;
+            width: 100%;
+        }
+        
+        .stortabell div
+        {
+            flex-grow: 1;
+        }
+        
+        .services
+        {
+            margin-top: 20pt;
+            flex-grow: 1;
+        }
+        
+        .services table
+        {
+            margin: 0;
+            border: none;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .services td
+        {
+            border-right: 1pt dotted rgba(0, 0, 0, 0.1);
+            padding: 0pt 3pt;
+            position: relative;
+        }
+        
+        .services td:last-child
+        {
+            border-right: none;
+        }
+        
+        .services .head
+        {
+            background: black;
+            color: white;
+            font-size: 10pt;
+        }
+        
+        .services .head th {
+            font-weight: normal;
+            padding: 4pt;
+            
+        }
+        
+        .services th.total
+        {
+            width: 70pt;
+        }
+        
+        .services td.total
+        {
+            text-align: right;
+        }
+        
+        .services .price
+        {
+            width: 60pt;
+            text-align: center;
+        }
+        
+        .services .ammount
+        {
+            width: 40pt;
+            text-align: center;
+        }
+        
+        .services .article
+        {
+            width: 100pt;
+        }
+        
+        .services input
+        {
+            width: 100%;
+            box-sizing: border-box;
+            text-align: inherit;
+        }
+        
+        .summary, .footer
+        {
+            border-top: 1pt solid rgba(0, 0, 0, 0.1);
+            padding: 10pt;
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .summary > div, .footer > div
+        {
+            flex-grow: 1;
+            width: 50%;
+            margin-right: 30pt;
+        }
+        
+        .footer > div
+        {
+            margin-right: 0%;
+            font-size: 8pt;
+        }
+        
+        .summary > div:nth-child(2)
+        {
+            margin-right: 0;
+        }
+        
+        .summary > div input, .footer > div input
+        {
+            display: block;
+            float: right;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+        }
+        
+        .footer > div input
+        {
+            text-align: left;
+            font-size: 8pt;
+            float: none;
+            display: inline-block;
+            width: 100pt;
+        }
+        
+        .summary .total
+        {
+            font-weight: bold;
+            margin-top: 10pt;
+        }
+        
+        .footer div
+        {
+            flex-grow: 1;
+        }
+        
+        .footer div:last-child
+        {
+            flex-grow: 0;
+            width: 200pt;
+        }
+        
+    </style>
+</html>
