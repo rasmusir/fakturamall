@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link href="style.css" type="text/css" rel="stylesheet">
         <script>
             function beforeprint()
             {
@@ -97,11 +96,11 @@
                     <th class="total">Belopp (SEK)</th>
                 </tr>
                 <tr class="item">
-                    <td class="article"><input></td>
-                    <td class="desc"><input></td>
-                    <td class="ammount"><input></td>
-                    <td class="price"><input></td>
-                    <td class="total"><input></td>
+                    <td class="article" valign="top"><div contenteditable="true"></div></td>
+                    <td class="desc" valign="top"><div contenteditable="true"></div></td>
+                    <td class="ammount" valign="top"><div contenteditable="true"></div></td>
+                    <td class="price" valign="top"><div contenteditable="true"></div></td>
+                    <td class="total" valign="top"><div contenteditable="true"></div></td>
                 </tr>
             </table>
         </div>
@@ -302,8 +301,8 @@
         {
             width: 100pt;
         }
-        
-        .services input
+
+        .services div
         {
             width: 100%;
             box-sizing: border-box;
